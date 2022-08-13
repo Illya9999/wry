@@ -471,7 +471,7 @@ r#"Object.defineProperty(window, 'ipc', {
       for js in attributes.initialization_scripts {
         w.init(&js);
       }
-
+	  w.set_user_agent(attributes.version);
       // Set user agent
       if let Some(user_agent) = attributes.user_agent {
         w.set_user_agent(user_agent.as_str())

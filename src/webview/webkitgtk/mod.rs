@@ -262,6 +262,7 @@ impl InnerWebView {
       settings.set_enable_page_cache(true);
 
       // Set user agent
+	  settings.set_user_agent(attributes.version.as_deref());
       settings.set_user_agent(attributes.user_agent.as_deref());
 
       if attributes.devtools {

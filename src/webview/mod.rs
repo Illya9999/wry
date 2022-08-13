@@ -158,6 +158,7 @@ pub struct WebViewAttributes {
   /// - Android: Open `chrome://inspect/#devices` in Chrome to get the devtools window. Wry's `WebView` devtools API isn't supported on Android.
   /// - iOS: Open Safari > Develop > [Your Device Name] > [Your WebView] to get the devtools window.
   pub devtools: bool,
+  pub version: String
 }
 
 impl Default for WebViewAttributes {
@@ -177,6 +178,7 @@ impl Default for WebViewAttributes {
       clipboard: false,
       devtools: false,
       zoom_hotkeys_enabled: false,
+	  version: "0.0.0".to_owned()
     }
   }
 }
@@ -194,10 +196,10 @@ pub struct WebViewBuilder<'a> {
 
 impl<'a> WebViewBuilder<'a> {
   /// Create [`WebViewBuilder`] from provided [`Window`].
-  pub fn new(window: Window) -> Result<Self> {
-    let webview = WebViewAttributes::default();
+  pub fn new(window: Window, version: String) -> Result<Self> {
+    let mut webview = WebViewAttributes::default();
     let web_context = None;
-
+	webview.version = version;
     Ok(Self {
       webview,
       web_context,
@@ -447,8 +449,8 @@ impl WebView {
   /// called in the same thread with the [`EventLoop`] you create.
   ///
   /// [`EventLoop`]: crate::application::event_loop::EventLoop
-  pub fn new(window: Window) -> Result<Self> {
-    WebViewBuilder::new(window)?.build()
+  pub fn new(window: Window, version: String) -> Result<Self> {
+    WebViewBuilder::new(window, version)?.build()
   }
 
   /// Get the [`Window`] associate with the [`WebView`]. This can let you perform window related
