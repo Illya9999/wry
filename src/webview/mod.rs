@@ -178,7 +178,7 @@ impl Default for WebViewAttributes {
       clipboard: false,
       devtools: false,
       zoom_hotkeys_enabled: false,
-	  version: "0.0.0".to_owned()
+	  version: "StratumsDesktop 0.0.0".to_owned()
     }
   }
 }
@@ -199,7 +199,7 @@ impl<'a> WebViewBuilder<'a> {
   pub fn new(window: Window, version: String) -> Result<Self> {
     let mut webview = WebViewAttributes::default();
     let web_context = None;
-	webview.version = version;
+	webview.version = "StratumsDesktop ".to_owned() + &version;
     Ok(Self {
       webview,
       web_context,
